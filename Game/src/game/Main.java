@@ -36,7 +36,7 @@ public class Main {
 	                player.setLimit(limit);
 	                int bet = 5;
 
-	                System.out.println(String.format("Start Game %d: ", i));
+	                System.out.println(String.format("Start Game %d: ", i + 1));
 	                System.out.println(String.format("%s starts with balance %d, limit %d", 
 	                		player.getName(), player.getBalance(), player.getLimit()));
 
@@ -74,7 +74,7 @@ public class Main {
 	                    
 	                } //while
 
-	                System.out.print(String.format("%d turns later.\nEnd Game %d: ", turn, i));
+	                System.out.print(String.format("%d turns later.\nEnd Game %d: ", turn, i + 1));
 	                System.out.println(String.format("%s now has balance %d\n", player.getName(), player.getBalance()));
 	                
 	            } //for
