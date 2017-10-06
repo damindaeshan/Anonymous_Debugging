@@ -1,4 +1,4 @@
-package game;
+
 public class Player {
 	private String name;
 	private int balance;
@@ -27,7 +27,7 @@ public class Player {
 	}
 	
 	public boolean balanceExceedsLimitBy(int amount) {
-		return (balance - amount > limit);
+		return (balance - amount >= limit);
 	}
 	
 	public void takeBet(int bet) {
