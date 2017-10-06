@@ -12,74 +12,83 @@ public class Main {
 
 	   System.out.println("\nEnter the player name: ");
 	   String name = scanner.nextLine();
-        int totalWins = 0;
-        int totalLosses = 0;
 
-        while (true)
-        {
-            int winCount = 0;
-            int loseCount = 0;
+	   // User enter the age and display the age varification
+	   System.out.println("\nEnter the " + name + "'s age: ");
+	   int age = scanner.nextInt();
 
-            for (int i = 0; i < 100; i++)
-            {
-            	int balance = 100;
-            	int limit = 0;
-            	Player player = new Player(name, balance);
-                player.setLimit(limit);
-                int bet = 5;
+	   if (age < 18) {
+		   System.out.println("Age should be 18+..You can not play the game!!!");
+	   } else {
+	        int totalWins = 0;
+	        int totalLosses = 0;
 
-                System.out.println(String.format("Start Game %d: ", i));
-                System.out.println(String.format("%s starts with balance %d, limit %d", 
-                		player.getName(), player.getBalance(), player.getLimit()));
+	        while (true)
+	        {
+	            int winCount = 0;
+	            int loseCount = 0;
 
-                int turn = 0;
-                while (player.balanceExceedsLimitBy(bet) && player.getBalance() < 200)
-                {
-                    Dice d1 = new Dice();
-                    Dice d2 = new Dice();
-                    Dice d3 = new Dice();
+	            for (int i = 0; i < 100; i++)
+	            {
+	            	int balance = 100;
+	            	int limit = 0;
+	            	Player player = new Player(name, balance);
+	                player.setLimit(limit);
+	                int bet = 5;
 
-                    Game game = new Game(d1, d2, d3);
-                    List<DiceValue> cdv = game.getDiceValues();
-                    turn++;                    
-                	DiceValue pick = DiceValue.getRandom();
-                   
-                	System.out.printf("Turn %d: %s bet %d on %s\n",
-                			turn, player.getName(), bet, pick); 
-                	
-                	int winnings = game.playRound(player, pick, bet);
-                    cdv = game.getDiceValues();
-                    
-                    System.out.printf("Rolled %s, %s, %s\n",
-                    		cdv.get(0), cdv.get(1), cdv.get(2));
-                    
-                    if (winnings > 0) {
-	                    System.out.printf("%s won %d, balance now %d\n\n",
-	                    		player.getName(), winnings, player.getBalance());
-	                	winCount++; 
-                    }
-                    else {
-	                    System.out.printf("%s lost, balance now %d\n\n",
-	                    		player.getName(), player.getBalance());
-	                	loseCount++;
-                    }
-                    
-                } //while
+	                System.out.println(String.format("Start Game %d: ", i));
+	                System.out.println(String.format("%s starts with balance %d, limit %d", 
+	                		player.getName(), player.getBalance(), player.getLimit()));
 
-                System.out.print(String.format("%d turns later.\nEnd Game %d: ", turn, i));
-                System.out.println(String.format("%s now has balance %d\n", player.getName(), player.getBalance()));
-                
-            } //for
-            
-            System.out.println(String.format("Win count = %d, Lose Count = %d, %.2f", winCount, loseCount, (float) winCount/(winCount+loseCount)));
-            totalWins += winCount;
-            totalLosses += loseCount;
+	                int turn = 0;
+	                while (player.balanceExceedsLimitBy(bet) && player.getBalance() < 200)
+	                {
+	                    Dice d1 = new Dice();
+	                    Dice d2 = new Dice();
+	                    Dice d3 = new Dice();
 
-            String ans = console.readLine();
-            if (ans.equals("q")) break;
-        } //while true
-        
-        System.out.println(String.format("Overall win rate = %.1f%%", (float)(totalWins * 100) / (totalWins + totalLosses)));
+	                    Game game = new Game(d1, d2, d3);
+	                    List<DiceValue> cdv = game.getDiceValues();
+	                    turn++;                    
+	                	DiceValue pick = DiceValue.getRandom();
+	                   
+	                	System.out.printf("Turn %d: %s bet %d on %s\n",
+	                			turn, player.getName(), bet, pick); 
+	                	
+	                	int winnings = game.playRound(player, pick, bet);
+	                    cdv = game.getDiceValues();
+	                    
+	                    System.out.printf("Rolled %s, %s, %s\n",
+	                    		cdv.get(0), cdv.get(1), cdv.get(2));
+	                    
+	                    if (winnings > 0) {
+		                    System.out.printf("%s won %d, balance now %d\n\n",
+		                    		player.getName(), winnings, player.getBalance());
+		                	winCount++; 
+	                    }
+	                    else {
+		                    System.out.printf("%s lost, balance now %d\n\n",
+		                    		player.getName(), player.getBalance());
+		                	loseCount++;
+	                    }
+	                    
+	                } //while
+
+	                System.out.print(String.format("%d turns later.\nEnd Game %d: ", turn, i));
+	                System.out.println(String.format("%s now has balance %d\n", player.getName(), player.getBalance()));
+	                
+	            } //for
+	            
+	            System.out.println(String.format("Win count = %d, Lose Count = %d, %.2f", winCount, loseCount, (float) winCount/(winCount+loseCount)));
+	            totalWins += winCount;
+	            totalLosses += loseCount;
+
+	            String ans = console.readLine();
+	            if (ans.equals("q")) break;
+	        } //while true
+	        
+	        System.out.println(String.format("Overall win rate = %.1f%%", (float)(totalWins * 100) / (totalWins + totalLosses)));
+	   }
 	}
 
 }
