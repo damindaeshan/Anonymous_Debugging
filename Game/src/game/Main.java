@@ -1,13 +1,17 @@
 import java.util.List;
+import java.util.Scanner;
 import java.io.*;
 
 public class Main {
 	
 	public static void main(String[] args) throws Exception {
+
+		Scanner scanner = new Scanner(System.in);
 		
 	   BufferedReader console = new BufferedReader(new InputStreamReader(System.in));
 
-       Player player = new Player("Fred", 100);
+	   System.out.println("\nEnter the player name: ");
+	   String name = scanner.nextLine();
         int totalWins = 0;
         int totalLosses = 0;
 
@@ -18,10 +22,9 @@ public class Main {
 
             for (int i = 0; i < 100; i++)
             {
-            	String name = "Fred";
             	int balance = 100;
             	int limit = 0;
-                player = new Player(name, balance);
+            	Player player = new Player(name, balance);
                 player.setLimit(limit);
                 int bet = 5;
 
