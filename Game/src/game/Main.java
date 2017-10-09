@@ -26,6 +26,9 @@ public class Main {
             System.out.println("Age should be 18+..You can not play the game!!!");
 
         } else {
+            
+            System.out.println("Enter your bet value: ");
+            int bet = input.nextInt();
             Player player = new Player(pName, 100);
             Game game = new Game(d1, d2, d3);
             List<DiceValue> cdv = game.getDiceValues();
@@ -43,7 +46,7 @@ public class Main {
                     int limit = 0;
                     player = new Player(name, balance);
                     player.setLimit(limit);
-                    int bet = 5;
+//                    int bet = 5;
 
                     System.out.println(String.format("Start Game %d: ", i));
                     System.out.println(String.format("%s starts with balance %d, limit %d",
