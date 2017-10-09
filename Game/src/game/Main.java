@@ -17,72 +17,82 @@ public class Main {
         Scanner input = new Scanner(System.in);
         System.out.println("Enter Player Name: ");
         String pName = input.nextLine();
-        
-        Player player = new Player(pName, 100);
-        Game game = new Game(d1, d2, d3);
-        List<DiceValue> cdv = game.getDiceValues();
 
-        int totalWins = 0;
-        int totalLosses = 0;
+        System.out.println("Enter Player Age: ");
+        int age = input.nextInt();
 
-        while (true) {
-            int winCount = 0;
-            int loseCount = 0;
+        if (age < 18) {
 
-            for (int i = 0; i < 100; i++) {
-                String name = "Fred";
-                int balance = 100;
-                int limit = 0;
-                player = new Player(name, balance);
-                player.setLimit(limit);
-                int bet = 5;
+            System.out.println("Age should be 18+..You can not play the game!!!");
 
-                System.out.println(String.format("Start Game %d: ", i));
-                System.out.println(String.format("%s starts with balance %d, limit %d",
-                        player.getName(), player.getBalance(), player.getLimit()));
+        } else {
+            Player player = new Player(pName, 100);
+            Game game = new Game(d1, d2, d3);
+            List<DiceValue> cdv = game.getDiceValues();
 
-                int turn = 0;
-                while (player.balanceExceedsLimitBy(bet) && player.getBalance() < 200) {
-                    turn++;
-                    DiceValue pick = DiceValue.getRandom();
+            int totalWins = 0;
+            int totalLosses = 0;
 
-                    System.out.printf("Turn %d: %s bet %d on %s\n",
-                            turn, player.getName(), bet, pick);
+            while (true) {
+                int winCount = 0;
+                int loseCount = 0;
 
-                    int winnings = game.playRound(player, pick, bet);
-                    cdv = game.getDiceValues();
+                for (int i = 0; i < 100; i++) {
+                    String name = "Fred";
+                    int balance = 100;
+                    int limit = 0;
+                    player = new Player(name, balance);
+                    player.setLimit(limit);
+                    int bet = 5;
 
-                    System.out.printf("Rolled %s, %s, %s\n",
-                            cdv.get(0), cdv.get(1), cdv.get(2));
+                    System.out.println(String.format("Start Game %d: ", i));
+                    System.out.println(String.format("%s starts with balance %d, limit %d",
+                            player.getName(), player.getBalance(), player.getLimit()));
 
-                    if (winnings > 0) {
-                        System.out.printf("%s won %d, balance now %d\n\n",
-                                player.getName(), winnings, player.getBalance());
-                        winCount++;
-                    } else {
-                        System.out.printf("%s lost, balance now %d\n\n",
-                                player.getName(), player.getBalance());
-                        loseCount++;
-                    }
+                    int turn = 0;
+                    while (player.balanceExceedsLimitBy(bet) && player.getBalance() < 200) {
+                        turn++;
+                        DiceValue pick = DiceValue.getRandom();
 
-                } //while
+                        System.out.printf("Turn %d: %s bet %d on %s\n",
+                                turn, player.getName(), bet, pick);
 
-                System.out.print(String.format("%d turns later.\nEnd Game %d: ", turn, i));
-                System.out.println(String.format("%s now has balance %d\n", player.getName(), player.getBalance()));
+                        int winnings = game.playRound(player, pick, bet);
+                        cdv = game.getDiceValues();
 
-            } //for
+                        System.out.printf("Rolled %s, %s, %s\n",
+                                cdv.get(0), cdv.get(1), cdv.get(2));
 
-            System.out.println(String.format("Win count = %d, Lose Count = %d, %.2f", winCount, loseCount, (float) winCount / (winCount + loseCount)));
-            totalWins += winCount;
-            totalLosses += loseCount;
+                        if (winnings > 0) {
+                            System.out.printf("%s won %d, balance now %d\n\n",
+                                    player.getName(), winnings, player.getBalance());
+                            winCount++;
+                        } else {
+                            System.out.printf("%s lost, balance now %d\n\n",
+                                    player.getName(), player.getBalance());
+                            loseCount++;
+                        }
 
-            String ans = console.readLine();
-            if (ans.equals("q")) {
-                break;
-            }
-        } //while true
+                    } //while
 
-        System.out.println(String.format("Overall win rate = %.1f%%", (float) (totalWins * 100) / (totalWins + totalLosses)));
+                    System.out.print(String.format("%d turns later.\nEnd Game %d: ", turn, i));
+                    System.out.println(String.format("%s now has balance %d\n", player.getName(), player.getBalance()));
+
+                } //for
+
+                System.out.println(String.format("Win count = %d, Lose Count = %d, %.2f", winCount, loseCount, (float) winCount / (winCount + loseCount)));
+                totalWins += winCount;
+                totalLosses += loseCount;
+
+                String ans = console.readLine();
+                if (ans.equals("q")) {
+                    break;
+                }
+            } //while true
+
+            System.out.println(String.format("Overall win rate = %.1f%%", (float) (totalWins * 100) / (totalWins + totalLosses)));
+        }
+
     }
 
 }
