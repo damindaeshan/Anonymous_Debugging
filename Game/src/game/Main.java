@@ -41,14 +41,14 @@ public class Main {
                 int loseCount = 0;
 
                 for (int i = 0; i < 100; i++) {
-                    String name = "Fred";
+                    String name = pName;
                     int balance = 100;
                     int limit = 0;
                     player = new Player(name, balance);
                     player.setLimit(limit);
 //                    int bet = 5;
 
-                    System.out.println(String.format("Start Game %d: ", i));
+                    System.out.println(String.format("Start Game %d: ", i + 1));
                     System.out.println(String.format("%s starts with balance %d, limit %d",
                             player.getName(), player.getBalance(), player.getLimit()));
 
