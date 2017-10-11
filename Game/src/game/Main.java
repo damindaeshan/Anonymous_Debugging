@@ -76,6 +76,11 @@ public class Main {
 
 	                System.out.print(String.format("%d turns later.\nEnd Game %d: ", turn, i + 1));
 	                System.out.println(String.format("%s now has balance %d\n", player.getName(), player.getBalance()));
+	                System.out.println("Do you want to continue the play? (Y/N)");
+	                String isContinue = console.readLine();
+	                if (isContinue.equalsIgnoreCase("N")) {
+	                	break;
+	                }
 	                
 	            } //for
 	            
