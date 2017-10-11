@@ -88,15 +88,16 @@ public class Main {
                 totalWins += winCount;
                 totalLosses += loseCount;
 
+                System.out.println("If you want to exit: ");
                 String ans = console.readLine();
                 if (ans.equals("q")) {
                     break;
+                }else{
+                    continue;
                 }
             } //while true
-
-            System.out.println(String.format("Overall win rate = %.1f%%", (float) (totalWins * 100) / (totalWins + totalLosses)));
+             System.out.println(String.format("Overall win rate = %.1f%%", (float) (totalWins * 100) / (totalWins + totalLosses)));
         }
-
     }
 
 }
