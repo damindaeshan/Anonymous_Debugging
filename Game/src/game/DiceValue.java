@@ -1,4 +1,3 @@
-package game;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Random;
@@ -23,7 +22,7 @@ public enum DiceValue {
 	}
 	
 	public static DiceValue getRandom() {
-		int random = RANDOM.nextInt(DiceValue.SPADE.ordinal());
+		int random = RANDOM.nextInt(DiceValue.values().length);
 		return values()[random];
 	}
 	
