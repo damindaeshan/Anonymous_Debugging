@@ -30,7 +30,8 @@ public class Main {
 
 	            for (int i = 0; i < 100; i++)
 	            {
-	            	int balance = 100;
+	            	System.out.println("How much balance you have?");
+	            	int balance = scanner.nextInt();
 	            	int limit = 0;
 	            	Player player = new Player(name, balance);
 	                player.setLimit(limit);
