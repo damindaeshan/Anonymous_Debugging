@@ -21,7 +21,34 @@ public class BugTesting {
     public static void main(String[] args) {
         bug1_CorrectPayOut();
         bug2_BetLimit();
+        bug3_DiceRollOdds();
     }
+    
+    public static void bug3_DiceRollOdds() {
+        logger.log(Level.INFO, "Bug testing that the DiceValues are not equal."
+                + "\nAll dice rolls must be equal.");
+
+        int rollCount = 10000;
+        int[] result = new int[6];
+
+        logger.log(Level.INFO,
+                 String.format("Performing a loop rolling the dice %d times.",
+                         rollCount));
+
+        for (int i = 0; i < rollCount; i++) {
+            result[DiceValue.getRandom().ordinal()]++;
+        }
+
+        logger.log(Level.INFO,
+                 String.format("Roll Results %s=%d, %s=%d, %s=%d, %s=%d, %s=%d, "
+                         + "%s=%d.\n", DiceValue.values()[0], result[0],
+                         DiceValue.values()[1], result[1], DiceValue.values()
+                                 [2], result[2], DiceValue.values()[3], result[3],
+                         DiceValue.values()[4], result[4], DiceValue.values()[
+                                 5], result[5]));
+    }
+    
+    
     
     public static void bug2_BetLimit() {
         logger.log(Level.INFO, "Bug testing Bet Limit Bug.\nThe player should be "
