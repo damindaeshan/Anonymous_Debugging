@@ -5,6 +5,7 @@
  */
 package game;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -23,7 +24,58 @@ public class BugTesting {
         bug2_BetLimit();
         bug3_DiceRollOdds();
         bug4_Odds();
+        bug5_DideRoll();
     }
+    
+    public static void bug5_DideRoll() {
+        logger.log(Level.INFO, "Bug testing the randomness of dice rolls."
+                + "\nEach round should result in a new set of random rolls.");
+
+        int rollCount = 10000;
+
+        Dice d1 = new Dice();
+        Dice d2 = new Dice();
+        Dice d3 = new Dice();
+
+        DiceValue pick = DiceValue.ANCHOR;
+
+        String name = "Fred";
+        int balance = rollCount * 2;
+        int limit = 0;
+        int bet = 1;
+
+        Player player = new Player(name, balance);
+        player.setLimit(limit);
+        Game game = new Game(d1, d2, d3);
+
+        int matchCount = 0;
+
+        List<DiceValue> currRolls = null;
+        List<DiceValue> prevRolls = null;
+
+        logger.log(Level.INFO,
+                 String.format("Performing a loop rolling the 3 die %d times.",
+                         rollCount));
+
+        for (int i = 0; i < rollCount; i++) {
+            game.playRound(player, pick, bet);
+
+            currRolls = game.getDiceValues();
+
+            if (prevRolls != null) {
+                if (currRolls.get(0) == prevRolls.get(0) && currRolls.get(1) == 
+                        prevRolls.get(1) && currRolls.get(2) == prevRolls.get(2)) {
+                    matchCount++;
+                }
+            }
+
+            prevRolls = new ArrayList<DiceValue>(currRolls);
+        }
+
+        logger.log(Level.INFO,
+                 String.format("After %d rolls of the die, %d exact 3 die matches were found.\n",rollCount, matchCount));
+    }
+    
     
     public static void bug4_Odds() {
         logger.log(Level.INFO, "Bug testing the payout return.\nThe payout return should be close to 92%.");
