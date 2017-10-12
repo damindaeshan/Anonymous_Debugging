@@ -22,6 +22,51 @@ public class BugTesting {
         bug1_CorrectPayOut();
         bug2_BetLimit();
         bug3_DiceRollOdds();
+        bug4_Odds();
+    }
+    
+    public static void bug4_Odds() {
+        logger.log(Level.INFO, "Bug testing the payout return.\nThe payout return should be close to 92%.");
+
+        Dice d1 = Mockito.mock(Dice.class);
+        Dice d2 = Mockito.mock(Dice.class);
+        Dice d3 = Mockito.mock(Dice.class);
+
+        DiceValue pick = DiceValue.ANCHOR;
+
+        String name = "Fred";
+        int balance = 500;
+        int limit = 0;
+        int bet = 1;
+
+        Player player = new Player(name, balance);
+        player.setLimit(limit);
+        Game game = new Game(d1, d2, d3);
+
+        int gamesPlayed = 0;
+        int amountSpent = 0;
+        int ammountCollected = 0;
+
+        logger.log(Level.INFO,
+                 String.format("Processing game.playRound loop with the values: balance=%d, limit=%d, bet=%d.",
+                         balance, limit, bet));
+
+        while (player.balanceExceedsLimitBy(bet) && player.getBalance() < 1000) {
+            //Setting up mock objects to create random rolls
+            when(d1.getValue()).thenReturn(DiceValue.getRandom());
+            when(d2.getValue()).thenReturn(DiceValue.getRandom());
+            when(d3.getValue()).thenReturn(DiceValue.getRandom());
+
+            int winnings = game.playRound(player, pick, bet);
+
+            gamesPlayed++;
+            amountSpent += bet;
+            ammountCollected += winnings;
+        } //while
+
+        logger.log(Level.INFO,
+                 String.format("%d rounds played. Amount Spent=%d, Amount Collected=%d, Payout Percent=%d.\n",
+                         gamesPlayed, amountSpent, ammountCollected, ((ammountCollected * 100) / amountSpent)));
     }
     
     public static void bug3_DiceRollOdds() {
