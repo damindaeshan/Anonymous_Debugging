@@ -20,7 +20,60 @@ public class BugTesting {
     
     public static void main(String[] args) {
         bug1_CorrectPayOut();
+        bug2_BetLimit();
     }
+    
+    public static void bug2_BetLimit() {
+        logger.log(Level.INFO, "Bug testing Bet Limit Bug.\nThe player should be "
+                + "able to make a $5 bet when their balance is 5.");
+
+        Dice d1 = Mockito.mock(Dice.class);
+        Dice d2 = Mockito.mock(Dice.class);
+        Dice d3 = Mockito.mock(Dice.class);
+
+        //Setting up mock objects to create a no match win
+        when(d1.getValue()).thenReturn(DiceValue.SPADE);
+        when(d2.getValue()).thenReturn(DiceValue.SPADE);
+        when(d3.getValue()).thenReturn(DiceValue.SPADE);
+
+        DiceValue pick = DiceValue.DIAMOND;
+
+        logger.log(Level.INFO,
+                 String.format("Dice Roll Values: d1=%s, d2=%s, d3=%s, pick=%s.",
+                         d1.getValue(), d2.getValue(), d3.getValue(), pick));
+
+        String name = "Fred";
+        int balance = 5; //Balance == Bet
+        int limit = 0;
+        int bet = 5;
+
+        logger.log(Level.INFO,
+                 String.format("Setup Values: balance=%d, limit=%d, bet=%d.",
+                         balance, limit, bet));
+
+        Player player = new Player(name, balance);
+        player.setLimit(limit);
+
+        boolean isValid = player.balanceExceedsLimitBy(bet);
+
+        logger.log(Level.INFO,
+                 String.format("Checking limit. player.balanceExceedsLimitBy"
+                         + "(bet)=%s.",
+                         isValid));
+
+        logger.log(Level.INFO,
+                 String.format("Testing if the player will take a bet with "
+                         + "player.takeBet(bet).",
+                         isValid));
+        player.takeBet(bet);
+
+        logger.log(Level.INFO,
+                 String.format("player.getBalance()=%d",
+                         player.getBalance()));
+    }
+    
+    
+    
     
     public static void bug1_CorrectPayOut() {
 
